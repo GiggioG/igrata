@@ -1,0 +1,6 @@
+{
+    "ports": {
+        "http": 8080,
+        "websocket": 9090
+    }
+}

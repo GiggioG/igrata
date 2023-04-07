@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Играта</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="form">
+        <div id="createGameForm">
+            <h2>Create New Game</h2>
+            <div>
+                <label>Your symbol: </label>
+                <select id="preferedSymbol">
+                    <option value="X">X</option>
+                    <option value="O">O</option>
+                </select>
+                <label>(You play first)</label>
+            </div>
+            <br>
+            <button id="createGame">Create new game</button>
+        </div>
+        <div id="joinGameForm">
+            <h2>Join Game</h2>
+            <div>
+                <label>Game code:</label>
+                <input type="text" id="gameCode">
+            </div>
+            <br>
+            <button id="joinGame">Join Game</button>
+        </div>
+    </div>
+    <main style="display:none;">
+        <h1 id="message">Current turn: <span id="turn"></span></h1>
+        <h1 id="winMessage" style="display:none;"></h1>
+        <canvas></canvas>
+        <button onclick="playAgain()" id="playAgain" style="filter: opacity(0);" disabled><b>Play again</b></button>
+        <p id="gameId"></p>
+    </main>
+    <script src="config.js"></script>
+    <script src="menuLogic.js"></script>
+    <script src="gameLogic.js"></script>
+</body>
+
+</html>

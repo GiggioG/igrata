@@ -1,0 +1,54 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+body {
+    background-color: rgb(255, 205, 240);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+main {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+div#createGameForm, div#joinGameForm {
+    margin: 50px 0px 50px 0px;
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+div#form {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+button#createGame, button#playAgain, button#joinGame {
+    width: 70%;
+    height: 50px;
+    font-size: x-large;
+    border-radius: 15px;
+}
+
+h1#message, h1#winMessage { 
+    text-align: center;
+}
+
+p#gameId{
+    position: absolute;
+    left: 5px;
+    bottom: 5px;
+}
