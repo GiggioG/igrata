@@ -1,4 +1,4 @@
-let ws = new WebSocket(`ws://${location.host}`);
+let ws = new WebSocket(`${location.protocol == "https:"?"wss":"ws"}://${location.host}`);
 let mySymbol = null;
 let gameId = null;
 
