@@ -1,4 +1,4 @@
-const config = require("./config.json");
+const port = process.env.PORT || 8080;
 
 const http = require("http");
 const fs = require("fs");
@@ -9,8 +9,25 @@ const Game = require("./game.js");
 
 let db = {};
 
+/// http server
+const url = require("url");
+let httpServer = http.createServer((req, res) => {
+    let urlPath = url.parse(req.url).pathname;
+    if (urlPath == '/') { urlPath = "/index.html" }
+    if (!fs.existsSync('./public/' + path.posix.normalize(urlPath))) {
+        res.writeHead(404);
+        res.end();
+        return;
+    }
+    fs.createReadStream('./public/' + path.posix.normalize(urlPath)).pipe(res);
+});
+httpServer.listen(port);
+console.log(`listening on port ${port}`);
+
+/// websockets
 let wss = new ws.Server({
-    port: config.ports.websocket
+    // port: config.ports.websocket
+    server: httpServer
 });
 wss.on("connection", sock => {
     sock.state = "waiting_for_game";
@@ -169,17 +186,3 @@ wss.on("connection", sock => {
         }
     });
 });
-
-/// http server
-const url = require("url");
-let httpServer = http.createServer((req, res) => {
-    let urlPath = url.parse(req.url).pathname;
-    if (urlPath == '/') { urlPath = "/index.html" }
-    if (!fs.existsSync('./public/' + path.posix.normalize(urlPath))) {
-        res.writeHead(404);
-        res.end();
-        return;
-    }
-    fs.createReadStream('./public/' + path.posix.normalize(urlPath)).pipe(res);
-});
-httpServer.listen(8080);

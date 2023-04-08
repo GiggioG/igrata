@@ -1,4 +1,4 @@
-let ws = new WebSocket(`ws://${location.hostname}:9090`);
+let ws = new WebSocket(`ws://${location.host}`);
 let mySymbol = null;
 let gameId = null;
 
