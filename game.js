@@ -12,6 +12,8 @@ class Game{
         }
         this.turn = turn;
         this.lastMove = null;
+        this.win = null;
+        this.winPaths = [];
     }
     serialise(){
         let board = this.board.flatMap(e=>e).join('');
@@ -58,6 +60,12 @@ class Game{
         }
         if(win != null){
             this.state = "ended";
+            this.win = win;
+            this.winPaths = winPaths;
+        }else{
+            this.state = "in_game";
+            this.win = null;
+            this.winPaths = [];
         }
         return {win, winPaths};
     }

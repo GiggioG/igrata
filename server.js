@@ -4,7 +4,7 @@ const http = require("http");
 const fs = require("fs");
 const ws = require("ws");
 const path = require("path");
-const { isSymbol, getUUID, invertSymbol } = require("./lib_util.js");
+const { isSymbol, getUUID, invertSymbol, getGameCode } = require("./lib_util.js");
 const Game = require("./game.js");
 
 let db = {};
@@ -32,7 +32,7 @@ wss.on("connection", sock => {
                 }));
             }
             sock.symbol = msg.data.symbol;
-            let gameId = getUUID();
+            let gameId = getGameCode();
             db[gameId] = {
                 game: new Game(sock.symbol),
                 socks: [sock]
@@ -77,7 +77,7 @@ wss.on("connection", sock => {
             db[gameId].socks.push(sock);
             sock.state = "in_game";
             sock.symbol = invertSymbol(db[gameId].socks[0].symbol);
-            return sock.send(JSON.stringify({
+            sock.send(JSON.stringify({
                 type: "join_game",
                 data: {
                     gameId,
@@ -85,6 +85,15 @@ wss.on("connection", sock => {
                     gameData: db[gameId].game.serialise()
                 }
             }));
+            if(db[gameId].game.state == "ended"){
+                sock.send(JSON.stringify({
+                    type: "game_end",
+                    data: {
+                        win: db[gameId].game.win,
+                        winPaths: db[gameId].game.winPaths
+                    }
+                }));
+            }
         } else if (msg.type == "move") {
             if (sock.state != "in_game") {
                 return sock.send(JSON.stringify({

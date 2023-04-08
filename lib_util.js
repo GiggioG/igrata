@@ -6,7 +6,9 @@ const invertSymbol = s => {
     if (s == 'X') { return 'O'; }
     else if (s == 'O') { return 'X'; }
 };
+const getRandomCapital = () => String.fromCharCode(Math.floor(Math.random()*26) + 65);
+const getGameCode = () => Array(6).fill().map(getRandomCapital).join('');
 
 module.exports = {
-    getUUID, isSymbol, invertSymbol
+    getUUID, isSymbol, invertSymbol, getGameCode
 }
