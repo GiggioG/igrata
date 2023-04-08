@@ -114,3 +114,16 @@ document.querySelector("button#joinGame").addEventListener("click", ()=>{
         }
     }));
 });
+
+document.querySelector("input#gameCode").addEventListener("input", ()=>{
+    let newContent = "";
+    document.querySelector("input#gameCode").value.split('').forEach(c => {
+        if(newContent.length >= 6){ return; }
+        if(c >= 'A' && c <= 'Z'){
+            newContent += c;
+        }else if(c >= 'a' && c <= 'z'){
+            newContent += c.toUpperCase();
+        }
+    });
+    document.querySelector("input#gameCode").value = newContent;
+});
