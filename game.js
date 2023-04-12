@@ -58,6 +58,11 @@ class Game{
                 }
             }
         }
+        if(win == null){
+            if(!this.board.map(e=>e.join('')).join('').includes('.')){
+                win = 'T';
+            }
+        }
         if(win != null){
             this.state = "ended";
             this.win = win;

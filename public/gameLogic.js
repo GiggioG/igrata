@@ -85,7 +85,7 @@ function drawBoard() {
             drawAtCoords(r, c, game.board[r][c]);
         }
     }
-    if (game.win != null) {
+    if (game.win != null && game.win != 'T') {
         ctx.strokeStyle = (game.win == 'X' ? X_WINSTROKE_COLOR : O_WINSTROKE_COLOR);
         ctx.lineWidth = WINSTROKE_WIDTH;
         game.winPaths.forEach(w => {

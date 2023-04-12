@@ -80,8 +80,13 @@ function parseWSMessage(msg){
         game.winPaths = msg.data.winPaths;
         drawBoard();
 
-        winMessageH.innerHTML = `${game.win} WON!!!`;
-        winMessageH.style.color = (game.win=='X'?X_COLOR:O_COLOR);
+        if(game.win == 'T'){
+            winMessageH.innerHTML = `The game ended in a tie.`;
+            winMessageH.style.color = "";
+        }else{
+            winMessageH.innerHTML = `${game.win} WON!!!`;
+            winMessageH.style.color = (game.win=='X'?X_COLOR:O_COLOR);
+        }
         messageH.style.display = "none";
         winMessageH.style.display = "";
         document.querySelector("button#playAgain").style.filter = "";
