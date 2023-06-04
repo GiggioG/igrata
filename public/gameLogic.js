@@ -5,7 +5,7 @@ let winH = (window.innerHeight
     - 43 //document.querySelector("h1#message").offsetHeight
     - 50 //document.querySelector("button#playAgain").offsetHeight
     - 50);
-let cellDim = min(winH/ROWS, winW/COLS);
+let cellDim = min(winH / ROWS, winW / COLS);
 let width = (ctx.canvas.width = cellDim * COLS);
 let height = (ctx.canvas.height = cellDim * ROWS);
 ctx.canvas.style.height = `${height}px`;
@@ -22,14 +22,15 @@ function handleClick(event) {
     const { x, y } = getCursorPosition(event);
     const r = Math.floor(y / cellDim);
     const c = Math.floor(x / cellDim);
-    if(mySymbol != game.turn){ return; }
+    if (game.win != null) { return; }
+    if (mySymbol != game.turn) { return; }
     if (game.board[r][c] != '.') { return; }
     if (r < ROWS - 1) {
         if (game.board[r + 1][c] == '.') { return; }
     }
     ws.send(JSON.stringify({
         type: "move",
-        data: {r, c}
+        data: { r, c }
     }));
 }
 ctx.canvas.addEventListener("click", handleClick);
@@ -61,15 +62,15 @@ function drawAtCoords(r, c, symbol) {
         ctx.beginPath();
         ctx.arc(x + cellDim / 2, y + cellDim / 2, r, 0, 2 * Math.PI);
         ctx.stroke();
-    }else if(symbol == 'H'){ // highlight {
+    } else if (symbol == 'H') { // highlight {
         let sym = game.board[r][c];
-        ctx.fillStyle = (sym=='X'?X_HIGHLIGHT_COLOR:O_HIGHLIGHT_COLOR);
+        ctx.fillStyle = (sym == 'X' ? X_HIGHLIGHT_COLOR : O_HIGHLIGHT_COLOR);
         ctx.fillRect(x, y, cellDim, cellDim);
     }
 }
 function drawBoard() {
     clearCanvas();
-    if(game.lastMove != null){
+    if (game.lastMove != null) {
         drawAtCoords(game.lastMove.r, game.lastMove.c, 'H');
     }
     ctx.strokeStyle = "grey";
@@ -97,9 +98,9 @@ function drawBoard() {
         ctx.lineWidth = WINSTROKE_WIDTH;
         game.winPaths.forEach(w => {
             ctx.beginPath();
-            ctx.moveTo(w.path[0].c * cellDim + cellDim/2, w.path[0].r * cellDim + cellDim/2);
-            ctx.lineTo(w.path[1].c * cellDim + cellDim/2, w.path[1].r * cellDim + cellDim/2);
-            ctx.lineTo(w.path[2].c * cellDim + cellDim/2, w.path[2].r * cellDim + cellDim/2);
+            ctx.moveTo(w.path[0].c * cellDim + cellDim / 2, w.path[0].r * cellDim + cellDim / 2);
+            ctx.lineTo(w.path[1].c * cellDim + cellDim / 2, w.path[1].r * cellDim + cellDim / 2);
+            ctx.lineTo(w.path[2].c * cellDim + cellDim / 2, w.path[2].r * cellDim + cellDim / 2);
             ctx.stroke();
         });
     }

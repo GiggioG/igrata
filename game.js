@@ -5,7 +5,7 @@ const COLS = 8;
 
 class Game{
     constructor(turn){
-        this.state = "in_progress";
+        this.state = "in_game";
         this.board = [];
         for (let i = 0; i < ROWS; i++) {
             this.board.push(".".repeat(COLS).split(""));
@@ -23,6 +23,7 @@ class Game{
         this.turn = invertSymbol(this.turn);
     }
     move(r, c){
+        if(this.state != "in_game") { return false; }
         if(r < 0 || r >= ROWS || c < 0 || c >= COLS){ return false; }
         if (this.board[r][c] != '.') { return false; }
         if ((r < ROWS - 1) && (this.board[r + 1][c] == '.')) { return false; }
