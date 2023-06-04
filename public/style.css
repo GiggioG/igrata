@@ -43,6 +43,10 @@ button#createGame, button#playAgain, button#joinGame {
     border-radius: 15px;
 }
 
+canvas {
+    align-self: center;
+}
+
 h1#message, h1#winMessage { 
     text-align: center;
 }
